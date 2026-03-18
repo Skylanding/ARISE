@@ -23,4 +23,4 @@
   <br>
 </p>
 
-Due to a server outage 🌪️⚡️⚠️ 😭  Full code coming by the end of March 2026 🚀 
+Due to a server outage 🌪️⚡️⚠️ 😭  full code is coming by the end of March 2026 🚀 
