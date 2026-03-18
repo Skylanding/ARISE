@@ -8,16 +8,12 @@
     &nbsp;&nbsp;
     <strong>Rui Miao</strong><sup>2</sup>
     &nbsp;&nbsp;
-    <strong>Zhengling Qi</strong><sup>3✉</sup>
+    <strong>Zhengling Qi</strong><sup>1✉</sup>
     &nbsp;&nbsp;
     <strong>Tian Lan</strong><sup>1✉</sup>
     <br>
-    George Washington University:&nbsp;
-    <sup>1</sup>Department of ECE,&nbsp;
-    <sup>3</sup>School of Business
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    University of Texas at Dallas:&nbsp;
-    <sup>2</sup>Department of Mathematical Sciences
+    <sup>1</sup>George Washington University&nbsp;&nbsp;
+    <sup>2</sup>University of Texas at Dallas
     <br>
     <a href='http://arxiv.org/abs/2603.16060'><img src='https://img.shields.io/badge/ArXiv-2603.16060-red'></a>&nbsp;
     <a href='https://github.com/Skylanding/ARISE'><img src='https://img.shields.io/badge/GitHub-Code-black?logo=github'></a>&nbsp;
