@@ -23,4 +23,4 @@
   <br>
 </p>
 
-Due to a server outage 🌪️⚡️⚠️ 😭  full code is coming by the end of March 2026 🚀 
+Code is coming soon, as we now have an updated version of the idea.
