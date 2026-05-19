@@ -180,11 +180,11 @@ ARISE/
 ## Citation
 
 ```bibtex
-@inproceedings{li2026arise,
-  title     = {ARISE: Agent Reasoning with Intrinsic Skill Evolution in Hierarchical Reinforcement Learning},
-  author    = {Yu Li and Rui Miao and Zhengling Qi and Tian Lan},
-  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
-  year      = {2026}
+@article{li2026arise,
+  title={Arise: Agent reasoning with intrinsic skill evolution in hierarchical reinforcement learning},
+  author={Li, Yu and Miao, Rui and Qi, Zhengling and Lan, Tian},
+  journal={arXiv preprint arXiv:2603.16060},
+  year={2026}
 }
 ```
 
