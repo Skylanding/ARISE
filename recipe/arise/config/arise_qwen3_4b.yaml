@@ -1,0 +1,70 @@
+# ARISE training config -- Qwen3-4B-Instruct-2507 on DeepScaleR.
+# Reproduces the "ARISE+DAPO / Qwen3-4B" row of Table 1 in the paper.
+#
+# Mirrors the hyperparameters listed in Appendix A.1 / Table 5.
+# Settings above the ``arise:`` block are owned by the underlying verl trainer
+# (recipe/dapo); settings inside ``arise:`` are owned by AriseConfig.
+
+base_recipe: dapo  # built on top of recipe/dapo
+
+# ---- verl trainer block (subset shown; merged into the DAPO base config) -----
+trainer:
+  total_steps: 2000
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 2
+  effective_batch_size: 64       # 4 x 2 x 8 GPUs
+  group_size: 8                  # G in Eq. 8
+  optimizer:
+    type: adamw
+    learning_rate: 1.0e-6
+    weight_decay: 0.01
+    lr_schedule: cosine
+    warmup_steps: 50
+  generation:
+    max_new_tokens: 4096
+    clip_ratio: 0.2              # epsilon_c in Eq. 9
+  dynamic_sampling: true         # DAPO-style zero-variance filtering
+
+model:
+  path: ${oc.env:ARISE_MODEL_PATH,/home/ubuntu/basemodels/qwen3/qwen3-4b-it}
+
+data:
+  train_file: ${oc.env:ARISE_TRAIN_FILE,/home/ubuntu/datasets/deepscaler/train.parquet}
+  val_files:
+    amc23: ${oc.env:ARISE_AMC23,/home/ubuntu/datasets/amc23/test.parquet}
+    aime24: ${oc.env:ARISE_AIME24,/home/ubuntu/datasets/aime24/test.parquet}
+    aime25: ${oc.env:ARISE_AIME25,/home/ubuntu/datasets/aime25/test.parquet}
+    omni_math: ${oc.env:ARISE_OMNI,/home/ubuntu/datasets/omni-math/test.parquet}
+
+# ---- ARISE-specific block -- mapped 1:1 into AriseConfig ---------------------
+arise:
+  # Skill selection (Manager)
+  temperature: 1.0
+  exploration_eps: 0.10
+  confidence_threshold: 0.35
+  max_skill_score_tokens: 128
+
+  # Skill library
+  cache_capacity: 10
+  reservoir_capacity: 100
+  ema_beta: 0.9
+  delete_percentile: 0.10
+
+  # Skill conclusion (O_{G+1})
+  max_summary_traces: 2
+  summary_trace_clip_chars: 400
+  summary_max_chars: 350     # field-content total (see skill_document.MAX_DOCUMENT_CHARS)
+
+  # Training schedule
+  warmup_steps: 500              # N_w in Section 3.4
+  skill_bonus: 1                 # r_skill in Table 8
+  rs_values: [-1.0, 0.0, 0.5, 1.0]   # (r1, r2, r3, r4) of Section 3.3
+
+  seed_skills_path: recipe/arise/seeds/seed_skills.json 
+  library_checkpoint_dir: ${oc.env:ARISE_CKPTS_DIR,ckpts/arise/library}
+  rng_seed: 0
+
+logging:
+  project: arise
+  experiment: ARISE-DAPO-Qwen3-4B
+  log_skill_library_every: 50

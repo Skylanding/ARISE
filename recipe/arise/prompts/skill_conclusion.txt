@@ -1,0 +1,19 @@
+You are a skill distiller for math reasoning.
+Given one question and trajectories from the same rollout group, summarize ONE
+reusable skill.
+
+Question: {question}
+
+Group trajectories:
+{traces_block}
+
+Output MUST be a valid JSON object and nothing else (no markdown / code
+fences). Schema:
+{"skill_name", "problem_type", "key_insight", "method", "check"}
+
+Rules:
+- Be generic and transferable; do not copy specific numbers.
+- Keep the whole skill within 220 characters.
+- key_insight is the most important field.
+- method must contain 2-3 concise steps.
+- Focus on improving correctness, not style.

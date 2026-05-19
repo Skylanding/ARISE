@@ -1,0 +1,57 @@
+# ARISE training config -- Phi-4-mini-instruct-3.8B on DeepScaleR.
+# Reproduces the "ARISE+DAPO / Phi-4-mini" row of Table 1 in the paper.
+# All ARISE hyperparameters identical to arise_qwen3_4b.yaml (Appendix A.1).
+
+base_recipe: dapo
+
+trainer:
+  total_steps: 2000
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 2
+  effective_batch_size: 64
+  group_size: 8
+  optimizer:
+    type: adamw
+    learning_rate: 1.0e-6
+    weight_decay: 0.01
+    lr_schedule: cosine
+    warmup_steps: 50
+  generation:
+    max_new_tokens: 4096
+    clip_ratio: 0.2
+  dynamic_sampling: true
+
+model:
+  path: ${oc.env:ARISE_MODEL_PATH,/home/ubuntu/basemodels/phi/phi-4-mini-instruct}
+
+data:
+  train_file: ${oc.env:ARISE_TRAIN_FILE,/home/ubuntu/datasets/deepscaler/train.parquet}
+  val_files:
+    amc23: ${oc.env:ARISE_AMC23,/home/ubuntu/datasets/amc23/test.parquet}
+    aime24: ${oc.env:ARISE_AIME24,/home/ubuntu/datasets/aime24/test.parquet}
+    aime25: ${oc.env:ARISE_AIME25,/home/ubuntu/datasets/aime25/test.parquet}
+    omni_math: ${oc.env:ARISE_OMNI,/home/ubuntu/datasets/omni-math/test.parquet}
+
+arise:
+  temperature: 1.0
+  exploration_eps: 0.10
+  confidence_threshold: 0.35
+  max_skill_score_tokens: 128
+  cache_capacity: 10
+  reservoir_capacity: 100
+  ema_beta: 0.9
+  delete_percentile: 0.10
+  max_summary_traces: 2
+  summary_trace_clip_chars: 400
+  summary_max_chars: 350     # field-content total (see skill_document.MAX_DOCUMENT_CHARS)
+  warmup_steps: 500
+  skill_bonus: 1
+  rs_values: [-1.0, 0.0, 0.5, 1.0]
+  seed_skills_path: recipe/arise/seeds/seed_skills.json
+  library_checkpoint_dir: ${oc.env:ARISE_CKPTS_DIR,ckpts/arise/library}
+  rng_seed: 0
+
+logging:
+  project: arise
+  experiment: ARISE-DAPO-Phi4-Mini
+  log_skill_library_every: 50

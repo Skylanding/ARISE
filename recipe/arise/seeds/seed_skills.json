@@ -1,0 +1,57 @@
+[
+  {
+    "skill_name": "equation_setup",
+    "problem_type": "algebra",
+    "key_insight": "Translate word-problem quantities into variables and equations before solving",
+    "method": [
+      "Name each unknown quantity with a single variable",
+      "Write one equation per stated relation",
+      "Solve the resulting system"
+    ],
+    "check": "Substitute back into the original word problem"
+  },
+  {
+    "skill_name": "modular_arithmetic_check",
+    "problem_type": "number_theory",
+    "key_insight": "Reduce expressions modulo small primes to constrain or verify integer solutions",
+    "method": [
+      "Pick a small modulus that simplifies the expression",
+      "Reduce both sides and compare residues",
+      "Use the residue constraint to prune cases"
+    ],
+    "check": "Re-verify the final solution under the original equation"
+  },
+  {
+    "skill_name": "case_enumeration",
+    "problem_type": "general",
+    "key_insight": "Systematically split into exhaustive cases and verify each independently",
+    "method": [
+      "Partition the problem by a clarifying property",
+      "Solve each case separately",
+      "Combine the results without double counting"
+    ],
+    "check": "Confirm the cases cover all possibilities and do not overlap"
+  },
+  {
+    "skill_name": "symmetry_exploitation",
+    "problem_type": "general",
+    "key_insight": "Identify and leverage algebraic or geometric symmetry to simplify the problem",
+    "method": [
+      "Detect an invariance under relabelling or reflection",
+      "Replace the symmetric block with one canonical representative",
+      "Multiply by the orbit size when counting"
+    ],
+    "check": "Confirm the symmetry preserves the constraints used"
+  },
+  {
+    "skill_name": "extremal_principle",
+    "problem_type": "general",
+    "key_insight": "Consider boundary or extremal configurations to establish bounds or find optima",
+    "method": [
+      "Identify a quantity to extremise",
+      "Examine the configuration at its extreme",
+      "Use the extreme as a witness or contradiction"
+    ],
+    "check": "Confirm the extremal candidate satisfies all constraints"
+  }
+]

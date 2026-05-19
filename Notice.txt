@@ -1,0 +1,7 @@
+This project includes code from the veRL project.
+
+Copyright 2023-2024 Bytedance Ltd. and/or its affiliates
+
+Additional modifications and contributions:
+
+Copyright 2026 the ARISE authors (Yu Li, Rui Miao, Zhengling Qi, Tian Lan).

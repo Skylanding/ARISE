@@ -1,0 +1,40 @@
+hydra:
+  searchpath:
+    - file://verl/trainer/config
+
+defaults:
+  - ppo_trainer
+  - _self_
+
+data:
+  gen_batch_size: ${data.train_batch_size}
+
+reward_model:
+  reward_manager: dapo
+  overlong_buffer: 
+    enable: False # We try to avoid forgetting to set enable
+    len: 0
+    penalty_factor: 0.0
+    log: False
+
+algorithm:
+  filter_groups:
+    enable: False # We try to avoid forgetting to set enable
+    metric: null # acc / score / seq_reward / seq_final_reward / ...
+    max_num_gen_batches: 0 # Non-positive values mean no upper limit
+
+trainer:
+  project_name: verl-dapo
+  # Set to true to use agent_system (TrajectoryCollector + envs) for multi-turn rollout; requires agent_system and matching data/env config.
+  use_agent_system: false
+
+# Optional skill DAPO: same π_θ for task + skill selection; reward = reward1 (math) + reward2 (skill).
+# skill_library:
+#   enable: true
+#   reward:
+#     enable: true
+#     skill_bonus_when_used_and_correct: 2.0   # +2 if selected skill and correct; else 0
+#   conclude_skill:
+#     enable: true   # after each group rollouts, conclude one skill from successful rollouts
+#   selection:
+#     score_mode: llm_logprob   # use same model (π_θ) for skill selection
